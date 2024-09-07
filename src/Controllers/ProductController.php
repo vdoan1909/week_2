@@ -11,8 +11,8 @@ class ProductController extends BaseController
     private $product;
     private $catalogue;
 
-    const PATH_VIEW = 'admin.product.';
-    const PATH_UPLOAD = 'images/products/';
+    const PATH_VIEW = 'admin.products.';
+    const PATH_UPLOAD = 'assets/images/products/';
 
     public function __construct()
     {
@@ -118,7 +118,6 @@ class ProductController extends BaseController
 
         $validation->validate();
 
-
         if ($validation->fails()) {
             $_SESSION['errors'] = $validation->errors()->toArray();
             // Debug::dd($_SESSION['errors']);
@@ -181,12 +180,12 @@ class ProductController extends BaseController
 
         $data = $this->product->getProductsByName($key);
 
-        return $this->view('admin.product.index', compact('data'));
+        return $this->view('admin.products.index', compact('data'));
     }
 
     public function searchByCatalogue($catalogue_id){
-        $data = $this->product->getProductsByCategory($catalogue_id);
+        $data = $this->product->getProductsByCatalogue($catalogue_id);
 
-        return $this->view('admin.product.index', compact('data'));
+        return $this->view('admin.products.index', compact('data'));
     }
 }

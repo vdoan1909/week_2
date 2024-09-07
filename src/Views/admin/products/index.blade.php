@@ -49,7 +49,7 @@
                                 <tr class="text-start">
                                     <td>{{ $item['id'] }}</td>
                                     <td>
-                                        <img width="100" src="{{ $_ENV['BASE_URL'] }}images/products/{{ $item['image'] }}"
+                                        <img width="100" src="{{ $_ENV['BASE_URL'] }}assets/images/products/{{ $item['image'] }}"
                                             alt="">
                                     </td>
                                     <td>{{ $item['name'] }}</td>

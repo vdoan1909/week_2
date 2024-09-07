@@ -8,7 +8,6 @@ class BaseModel
 {
     protected $connection;
     protected $table;
-    protected $query;
 
     public function __construct()
     {
@@ -22,17 +21,17 @@ class BaseModel
         ];
 
         $this->connection = DriverManager::getConnection($connectionParams);
-        $this->query = $this->connection->createQueryBuilder();
     }
 
-    public function getConnecttion()
+    public function getConnection()
     {
         return $this->connection;
     }
 
     public function all()
     {
-        $data = $this->query
+        $query = $this->connection->createQueryBuilder();
+        $data = $query
             ->select('*')
             ->from($this->table)
             ->fetchAllAssociative();
@@ -41,7 +40,8 @@ class BaseModel
 
     public function find($id)
     {
-        $data = $this->query
+        $query = $this->connection->createQueryBuilder();
+        $data = $query
             ->select('*')
             ->from($this->table)
             ->where('id = ?')
@@ -56,7 +56,7 @@ class BaseModel
             return false;
         }
 
-        $query = $this->query->insert($this->table);
+        $query = $this->connection->createQueryBuilder()->insert($this->table);
 
         $placeholders = [];
         $i = 0;
@@ -78,7 +78,7 @@ class BaseModel
             return false;
         }
 
-        $query = $this->query->update($this->table);
+        $query = $this->connection->createQueryBuilder()->update($this->table);
 
         $placeholders = [];
         $i = 0;
@@ -101,7 +101,7 @@ class BaseModel
 
     public function delete($id)
     {
-        $query = $this->query->delete($this->table);
+        $query = $this->connection->createQueryBuilder()->delete($this->table);
 
         $query->where('id = ?')
             ->setParameter(0, $id);

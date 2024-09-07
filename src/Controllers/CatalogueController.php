@@ -10,7 +10,7 @@ class CatalogueController extends BaseController
 {
     private $catalogue;
 
-    const PATH_VIEW = 'admin.catalogue.';
+    const PATH_VIEW = 'admin.catalogues.';
 
     public function __construct()
     {

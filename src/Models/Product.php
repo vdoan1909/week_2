@@ -7,7 +7,9 @@ class Product extends BaseModel
 
     public function getAllProducts()
     {
-        $data = $this->query->select('pr.id', 'pr.name', 'pr.image', 'pr.price', 'pr.description', 'pr.catalogue_id', 'cata.name as catalogue_name')
+        $query = $this->connection->createQueryBuilder();
+
+        $data = $query->select('pr.id', 'pr.name', 'pr.image', 'pr.price', 'pr.description', 'pr.catalogue_id', 'cata.name as catalogue_name')
             ->from($this->table, 'pr')
             ->join('pr', 'catalogues', 'cata', 'cata.id = pr.catalogue_id')
             ->fetchAllAssociative();
@@ -17,7 +19,9 @@ class Product extends BaseModel
 
     public function getOneProduct($id)
     {
-        $data = $this->query->select('pr.id', 'pr.name', 'pr.image', 'pr.price', 'pr.description', 'pr.catalogue_id', 'cata.name as catalogue_name')
+        $query = $this->connection->createQueryBuilder();
+
+        $data = $query->select('pr.id', 'pr.name', 'pr.image', 'pr.price', 'pr.description', 'pr.catalogue_id', 'cata.name as catalogue_name')
             ->from($this->table, 'pr')
             ->join('pr', 'catalogues', 'cata', 'cata.id = pr.catalogue_id')
             ->where('pr.id = ?')
@@ -29,7 +33,9 @@ class Product extends BaseModel
     
     public function getProductsByName($name)
     {
-        $data = $this->query->select('pr.id', 'pr.name', 'pr.image', 'pr.price', 'pr.description', 'cata.name as catalogue_name')
+        $query = $this->connection->createQueryBuilder();
+
+        $data = $query->select('pr.id', 'pr.name', 'pr.image', 'pr.price', 'pr.description', 'cata.name as catalogue_name')
             ->from($this->table, 'pr')
             ->join('pr', 'catalogues', 'cata', 'cata.id = pr.catalogue_id')
             ->where('pr.name like :name')
@@ -39,9 +45,11 @@ class Product extends BaseModel
         return $data;
     }
 
-    public function getProductsByCategory($catalogue_id)
+    public function getProductsByCatalogue($catalogue_id)
     {
-        $data = $this->query->select('pr.id', 'pr.name', 'pr.image', 'pr.price', 'pr.description', 'cata.name as catalogue_name')
+        $query = $this->connection->createQueryBuilder();
+
+        $data = $query->select('pr.id', 'pr.name', 'pr.image', 'pr.price', 'pr.description', 'cata.name as catalogue_name')
             ->from($this->table, 'pr')
             ->join('pr', 'catalogues', 'cata', 'cata.id = pr.catalogue_id')
             ->where('cata.id = :catalogue_id')

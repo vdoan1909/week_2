@@ -102,7 +102,7 @@
                                         @endif
                                         <hr>
                                         <img width="100"
-                                            src="{{ $_ENV['BASE_URL'] }}images/products/{{ $data['image'] }}"
+                                            src="{{ $_ENV['BASE_URL'] }}assets/images/products/{{ $data['image'] }}"
                                             alt="">
                                     </div>
                                 </div>
